@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: PodMonitor
+metadata:
+  name: sonarqube
+  namespace: monitoring
+spec:
+  containers:
+  - name: my-sonarqube
+    image: dileep4444/sonarqube:2.0
+    imagePullPolicy: Always
+  namespaceSelector:
+    matchNames:
+    - sonarqube
+  podMetricsEndpoints:
+  - interval: 30s
+    path: /
+    scheme: http
+    targetPort: monitoring-ce
+  - interval: 30s
+    path: /
+    scheme: http
+    targetPort: monitoring-web
+  selector:
+    matchLabels:
+      app: sonarqube
