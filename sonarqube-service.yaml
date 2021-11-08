@@ -5,12 +5,10 @@ metadata:
   labels:
     app: sonarqube
 spec:
-  ports:
-  - protocol: TCP
-    name: sonarqube
-    nodePort: 32000
-    targetPort: 9000
-    port: 9000   
-  type: NodePort 
+  type: LoadBalancer
   selector:
     app: sonarqube
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 80
